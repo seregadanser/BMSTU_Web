@@ -1,0 +1,836 @@
+openapi: 3.0.3
+info:
+  title: Swagger Warehouse - OpenAPI 3.0
+  version: 1.0.0
+tags:
+  - name: persons
+    description: Операции над сотрудниками
+  - name: places
+    description: Операции над местами
+  - name: inventoryProducts
+    description: Операции над инвентарными предметами
+  - name: freeInventoryProducts
+    description: Операции над свободными инвентарными предметами
+  - name: usefulProducts
+    description: Посмотреть занятые предметы
+  - name: usingProductsPlaces
+    description: Операции над предметами со стороны кладовщика
+
+paths:
+  /persons:
+    get:
+      tags:
+        - persons
+      summary: Получить список всех сотрудников
+      parameters:
+        - { in: query, name: page, schema: { type: integer } }
+        - { in: query, name: per_page, schema: { type: integer } }
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginatedResult"
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/PersonWP'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+    post:
+      tags:
+        - persons
+      summary: Добавить нового сотрудника
+      requestBody:
+        description: Данные для нового сотрудника
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '201':
+          description: Сотрудник успешно добавлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '409':
+          description: Уже существует
+        '400':
+          description: Неверные входные данные
+        '403':
+          description: Пользователь не имеет доступа
+        '401':
+          description: Пользователь не авторизован
+  /persons/{id}:
+    get:
+      tags:
+        - persons
+      summary: Получить информацию о сотруднике по Login
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: ID сотрудника
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonWP'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+        '404':
+          description: Сотрудник не найден
+    patch:
+      tags:
+        - persons
+      summary: Обновить информацию о сотруднике по Login
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: ID сотрудника
+          schema:
+            type: integer
+      requestBody:
+        description: Обновленные данные для сотрудника
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '200':
+          description: Информация о сотруднике успешно обновлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+        '404':
+          description: Сотрудник не найден
+    delete:
+      tags:
+        - persons
+      summary: Удалить сотрудника по Login
+      parameters:
+        - name: ID
+          in: path
+          required: true
+          description: ID сотрудника
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Сотрудник успешно удален
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+        '404':
+          description: Сотрудник не найден
+  
+  /places:
+    get:
+      tags:
+        - places
+      summary: Получить список всех мест
+      parameters:
+        - { in: query, name: page, schema: { type: integer } }
+        - { in: query, name: per_page, schema: { type: integer } }
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginatedResult"
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Place'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+    post:
+      tags:
+        - places
+      summary: Добавить новое место
+      requestBody:
+        description: Данные для нового места
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlaceWI'
+      responses:
+        '201':
+          description: Место успешно добавлено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Place'
+        '409':
+          description: Уже существует
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+  /places/{id}:
+    get:
+      tags:
+        - places
+      summary: Получить информацию о месте по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID места
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Place'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+        '404':
+          description: Место не найдено
+    patch:
+      tags:
+        - places
+      summary: Обновить информацию о месте по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID места
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        description: Обновленные данные для места
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Place'
+      responses:
+        '200':
+          description: Информация о месте успешно обновлена
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Place'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+        '404':
+          description: Место не найдено
+    delete:
+      tags:
+        - places
+      summary: Удалить место по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID места
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Место успешно удалено
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+        '404':
+          description: Место не найдено
+
+  /inventoryProducts:
+    get:
+      tags:
+        - inventoryProducts
+      summary: Получить список всех инвентарных предметов
+      parameters:
+        - { in: query, name: page, schema: { type: integer } }
+        - { in: query, name: per_page, schema: { type: integer } }
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginatedResult"
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/AdminCompose'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа    
+    post:
+      tags:
+        - inventoryProducts
+      summary: Создать новый инвентарный предмет
+      requestBody:
+        description: Данные для нового инвентарного предмета
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AdminCompose'
+      responses:
+        '201':
+          description: инвентарный предмет успешно создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCompose'
+        '409':
+          description: Уже существует
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+  /inventoryProducts/{id}:
+    get:
+      tags:
+        - inventoryProducts
+      summary: Получить информацию о инвентарном предмете по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID 
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminCompose'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа       
+        '404':
+          description: инвентарный предмет не найден
+    delete:
+      tags:
+        - inventoryProducts
+      summary: Удалить инвентарный предмет по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID 
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: инвентарный предмет успешно удален
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа        
+        '404':
+          description: инвентарный предмет не найден
+
+  /freeInventoryProducts:
+    get:
+      tags:
+        - freeInventoryProducts
+      summary: Получить список всех свободных инвентарных предметов
+      parameters:
+        - { in: query, name: page, schema: { type: integer } }
+        - { in: query, name: per_page, schema: { type: integer } }
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginatedResult"
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/WorkerLookCompose'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа       
+    post:
+      tags:
+        - freeInventoryProducts
+      summary: Создать новый свободный инвентарный предмет
+      requestBody:
+        description: Данные для нового свободного инвентарного предмета
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkerLookCompose'
+      responses:
+        '201':
+          description: свободный инвентарный предмет успешно создан
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkerLookCompose'
+        '409':
+          description: Уже существует
+        '400':
+          description:  Неверные входные данные    
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа 
+  /freeInventoryProducts/{id}:
+    get:
+      tags:
+        - freeInventoryProducts
+      summary: Получить информацию о свободных инвентарных предметах по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID 
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkerLookCompose'
+        '400':
+          description:  Неверные входные данные        
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа        
+        '404':
+          description: свободный инвентарный предмет не найден
+    delete:
+      tags:
+        - freeInventoryProducts
+      summary: Удалить по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID 
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: свободный инвентарный предмет успешно удален
+        '400':
+          description:  Неверные входные данные        
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа        
+        '404':
+          description: свободный инвентарный предмет не найден
+
+  /usefulProducts:
+    get:
+      tags:
+        - usefulProducts
+      summary: Получить список всех используемых предметов
+      parameters:
+        - { in: query, name: page, schema: { type: integer } }
+        - { in: query, name: per_page, schema: { type: integer } }
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginatedResult"
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/WorkerLookUsefulCompose'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа  
+
+  /usingProductsPlacess:
+    get:
+      tags:
+        - usingProductsPlaces
+      summary: Получить список всех используемых предметов
+      parameters:
+        - { in: query, name: page, schema: { type: integer } }
+        - { in: query, name: per_page, schema: { type: integer } }
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginatedResult"
+                  - type: object
+                    properties:
+                      results:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/usingProductsPlaces'
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа    
+  /usingProductsPlacess/{id}:
+    get:
+      tags:
+        - usingProductsPlaces
+      summary: Получить информацию о предмете по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID 
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Успешный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/usingProductsPlaces'
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа        
+        '404':
+          description: предмет не найден
+    delete:
+      tags:
+        - usingProductsPlaces
+      summary: Удалить предмет из используемых
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID предмета
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Предмет успешно удален
+        '400':
+          description:  Неверные входные данные
+        '401':
+          description: Пользователь не авторизован
+        '403':
+          description: Пользователь не имеет доступа
+        '404':
+          description: Предмет не найден
+
+components:
+  schemas:
+    WorkerLookCompose:
+      type: object
+      properties:
+        Inventory_number:
+          type: integer
+          format: int64
+          example: 10
+        DateCome:
+          type: string
+          format: date-time
+        DateProduction:
+          type: string
+          format: date-time
+        Name:
+          type: string
+    WorkerLookUsefulCompose:
+      type: object
+      properties:
+        Inventory_number:
+          type: integer
+          format: int32
+          description: Inventory number
+        Name:
+          type: string
+          minLength: 2
+          maxLength: 50
+          description: Product Name
+        DateCome:
+          type: string
+          format: date-time
+        DateProduction:
+          type: string
+          format: date-time
+        DateOfStart:
+          type: string
+          format: date-time
+      required:
+        - Inventory_number
+    usingProductsPlaces:
+      type: object
+      properties:
+        Name:
+          type: string
+          minLength: 2
+          maxLength: 50
+          description: Person Name
+        SecondName:
+          type: string
+          minLength: 2
+          maxLength: 50
+          description: Person Second Name
+        Login:
+          type: string
+          minLength: 2
+          maxLength: 50
+          description: Person Login
+        InventoryNumber:
+          type: integer
+          format: int32
+        NumberStay:
+          type: integer
+          format: int32
+        NumberLayer:
+          type: string
+        DateOfStart:
+          type: string
+          format: date-time
+      required:
+        - Name
+        - SecondName
+        - Login
+
+    AdminCompose:
+      type: object
+      properties:
+        ProductId:
+          type: integer
+          format: int32
+        Name:
+          type: string
+        DateCome:
+          type: string
+          format: date-time
+        DateProduction:
+          type: string
+          format: date-time
+        InventoryNumber:
+          type: integer
+          format: int32
+        PlaceId:
+          type: string
+
+    Person:
+      type: object
+      properties:
+        Login:
+          type: string
+          minLength: 3
+          maxLength: 50
+          description: Person Login
+        Name:
+          type: string
+          minLength: 3
+          maxLength: 50
+          description: Person Name
+        SecondName:
+          type: string
+          minLength: 3
+          maxLength: 50
+          description: Person SecondName
+        Position:
+          type: string
+          minLength: 3
+          maxLength: 50
+          description: Person Position
+        DateOfBirthday:
+          type: string
+          format: date
+          description: Date of Birthday
+        Password:
+          type: string
+          minLength: 3
+          maxLength: 50
+          description: Person Password
+        NumberOfCome:
+          type: integer
+          format: int32
+          description: Number of Come
+      required:
+        - Login
+        - Name
+        - SecondName
+        - Position
+        - DateOfBirthday
+        - Password
+
+    PersonWP:
+      type: object
+      properties:
+        ID: 
+          type: integer
+        Login:
+          type: string
+          minLength: 3
+          maxLength: 50
+          description: Person Login
+        Name:
+          type: string
+          minLength: 3
+          maxLength: 50
+          description: Person Name
+        SecondName:
+          type: string
+          minLength: 3
+          maxLength: 50
+          description: Person SecondName
+        Position:
+          type: string
+          minLength: 3
+          maxLength: 50
+          description: Person Position
+        DateOfBirthday:
+          type: string
+          format: date
+          description: Date of Birthday
+        NumberOfCome:
+          type: integer
+          format: int32
+          description: Number of Come
+      required:
+        - Login
+        - Name
+        - SecondName
+        - Position
+        - DateOfBirthday
+        - ID
+
+
+    Place:
+      type: object
+      properties:
+        Id:
+          type: integer
+          format: int32
+          description: Unique identifier for the place
+        NumberStay:
+          type: integer
+          format: int32
+          description: Number of stay
+        NumberLayer:
+          type: integer
+          format: int32
+          description: Number of layer
+        Size:
+          type: integer
+          format: int32
+          description: Size of the place
+
+    PlaceWI:
+      type: object
+      properties:
+        NumberStay:
+          type: integer
+          format: int32
+          description: Number of stay
+        NumberLayer:
+          type: integer
+          format: int32
+          description: Number of layer
+        Size:
+          type: integer
+          format: int32
+          description: Size of the place
+    PaginatedResult:
+      type: object
+      properties:
+        total: { type: number }
+        page: { type: number }
+        per_page: { type: number }
+        has_next: { type: boolean }
+        has_prev: { type: boolean }
+        results: { type: array, items: {} }  #  any type of items

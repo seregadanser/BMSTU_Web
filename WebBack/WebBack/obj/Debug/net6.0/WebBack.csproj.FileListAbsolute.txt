@@ -1,0 +1,14 @@
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.deps.json
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.runtimeconfig.json
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.dll
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.pdb
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.csproj.AssemblyReference.cache
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.AssemblyInfoInputs.cache
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.AssemblyInfo.cs
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.csproj.CoreCompileInputs.cache
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.dll
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\refint\WebBack.dll
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.pdb
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.genruntimeconfig.cache
+C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\ref\WebBack.dll
