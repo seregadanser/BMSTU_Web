@@ -1,15 +1,19 @@
+using DB_course.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace WebApplication1
 {
     public class Program
     {
+         
+
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            Dictionary<string, IConnection> userConnections = new Dictionary<string, IConnection>();
 
             IConfigurationRoot config = new ConfigurationBuilder()
-                .SetBasePath("D:\\")
+                .SetBasePath("D:\\Labs\\BMSTU_Web\\WebApplication1\\")
                 .AddJsonFile("connstring.json")
                 .Build();
 
@@ -23,6 +27,8 @@ namespace WebApplication1
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSingleton<Dictionary<string, IConnection>>(userConnections);
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options =>

@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <Reference Include="WebBack">
-      <HintPath>..\..\..\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.dll</HintPath>
+      <HintPath>..\WebBack\WebBack\bin\Debug\net6.0\WebBack.dll</HintPath>
     </Reference>
   </ItemGroup>
 

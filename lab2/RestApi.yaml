@@ -254,14 +254,14 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Place'
+              $ref: '#/components/schemas/PlaceWI'
       responses:
         '200':
           description: Информация о месте успешно обновлена
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Place'
+                $ref: '#/components/schemas/PlaceWI'
         '400':
           description:  Неверные входные данные
         '401':
@@ -431,7 +431,7 @@ paths:
     post:
       tags:
         - freeInventoryProducts
-      summary: Создать новый свободный инвентарный предмет
+      summary: Добавть свободный инвентарный предмет в занятые
       requestBody:
         description: Данные для нового свободного инвентарного предмета
         required: true

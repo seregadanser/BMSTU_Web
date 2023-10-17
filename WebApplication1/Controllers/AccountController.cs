@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
-
+using DB_course;
+using DB_course.Models;
+using DB_course.Repositories;
 
 namespace WebApplication1.Controllers
 {
@@ -20,30 +22,21 @@ namespace WebApplication1.Controllers
         public string Name { get; set; }
     }
 
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private List<Person> people; // Замените это на ваше хранилище пользователей
-
-        public AccountController()
+        //private List<Person> people; // Замените это на ваше хранилище пользователей
+        private AUnLoginModel model;
+        private Dictionary<string, IConnection> conn;
+        IConfigurationRoot config;
+        //IConnection _connection;
+        public AccountController(IConfigurationRoot config, Dictionary<string, IConnection> userConnections)
         {
-            // Замените этот блок инициализации на свою логику
-            people = new List<Person>
-        {
-            new Person
-            {
-                Email = "aa",
-                Password = "123",
-                Role = new Role { Name = "user" }
-            },
-            new Person
-            {
-                Email = "bb",
-                Password = "321",
-                Role = new Role { Name = "admin" }
-            }
-        };
+            conn = userConnections;
+            this.config = config;
+            model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(ConnectionBuilder.CreateMSSQLconnection(config))));
+ 
         }
 
         [HttpGet("login")]
@@ -51,27 +44,27 @@ namespace WebApplication1.Controllers
         {
             string loginForm = @"
            <!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8' />
-    <title>Login Form</title>
-</head>
-<body>
-    <h2>Login Form</h2>
-    <form method='post' action='/api/account/login'>
-        <p>
+            <html>
+            <head>
+             <meta charset='utf-8' />
+             <title>Login Form</title>
+            </head>
+            <body>
+             <h2>Login Form</h2>
+             <form method='post' action='/api/account/login'>
+            <p>
             <label>Email</label><br />
             <input name='email' />
-        </p>
-        <p>
+          </p>
+          <p>
             <label>Password</label><br />
             <input type='password' name='password' />
         </p>
         <input type='hidden' name='returnUrl' value='/' /> <!-- Добавьте это поле -->
         <input type='submit' value='Login' />
-    </form>
-</body>
-</html>";
+          </form>
+        </body>
+            </html>";
 
             return Content(loginForm, "text/html");
         }
@@ -79,33 +72,30 @@ namespace WebApplication1.Controllers
         [HttpPost("login")]
         public IActionResult LoginPost(string email, string password)
         {
+            //var person = people.FirstOrDefault(p => p.Email == email && p.Password == password);
+            //if (person == null)
+            //{
+            //    return Unauthorized();
+            //}
 
-            //var form = HttpContext.Request.Form;
-            //// если email и/или пароль не установлены, посылаем статусный код ошибки 400
-            //if(!form.ContainsKey("email") || !form.ContainsKey("password"))
-            //    return BadRequest("Email и/или пароль не установлены");
-            //string email = form["email"];
-            //string password = form["password"];
+            State s =  model.Check(email, password);
 
-            // Проверьте учетные данные пользователя (замените на вашу логику)
-            var person = people.FirstOrDefault(p => p.Email == email && p.Password == password);
-            if(person == null)
+            if(s == State.INVALID)
             {
                 return Unauthorized();
             }
-
-            // Создайте утверждения для пользователя
+ 
             var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, person.Email),
-            new Claim(ClaimTypes.Role, person.Role.Name)
-        };
+            {
+            new Claim(ClaimTypes.Name, email),
+            new Claim(ClaimTypes.Role, model.Proffesion)
+            };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
             {
-                IsPersistent = true, // или false, в зависимости от вашего требования
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30) // настройте срок действия сессии
+                IsPersistent = true,
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(5)// AddMinutes(30) 
             };
 
             HttpContext.SignInAsync(
@@ -113,14 +103,15 @@ namespace WebApplication1.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties).Wait();
 
+            conn[email] = ConnectionBuilder.CreateMSSQLconnection(config, email, password);
+            Response.Cookies.Append("UserNameCookie", email, new CookieOptions
+            {
+                Expires = DateTimeOffset.Now.AddMinutes(5),
+                HttpOnly = true, 
+                Secure = true, 
+            });
 
-   
-
-            string basePath = HttpContext.Request.PathBase;
-           // string basePathValue = basePath.Value;
-
-
-            return Redirect("/api/");
+            return Redirect("/Persons");
         }
 
         [HttpGet("logout")]
@@ -132,7 +123,7 @@ namespace WebApplication1.Controllers
         }
 
 
-        
+
         [HttpGet("accessdenied")]
         [Authorize]
         public IActionResult Errors()

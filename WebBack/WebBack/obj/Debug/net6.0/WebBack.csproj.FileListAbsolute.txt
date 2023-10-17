@@ -12,3 +12,17 @@ C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6
 C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.pdb
 C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.genruntimeconfig.cache
 C:\Users\kalas\Downloads\Telegram Desktop\Web\Web\WebBack\WebBack\obj\Debug\net6.0\ref\WebBack.dll
+D:\Labs\BMSTU_Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.deps.json
+D:\Labs\BMSTU_Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.runtimeconfig.json
+D:\Labs\BMSTU_Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.dll
+D:\Labs\BMSTU_Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.pdb
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.csproj.AssemblyReference.cache
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.GeneratedMSBuildEditorConfig.editorconfig
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.AssemblyInfoInputs.cache
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.AssemblyInfo.cs
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.csproj.CoreCompileInputs.cache
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.dll
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\refint\WebBack.dll
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.pdb
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.genruntimeconfig.cache
+D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\ref\WebBack.dll
