@@ -13,7 +13,7 @@ namespace WebApplication1
             Dictionary<string, IConnection> userConnections = new Dictionary<string, IConnection>();
 
             IConfigurationRoot config = new ConfigurationBuilder()
-                .SetBasePath("D:\\Labs\\BMSTU_Web\\WebApplication1\\")
+                .SetBasePath("D:\\Labs\\Web\\WebApplication1\\")
                 .AddJsonFile("connstring.json")
                 .Build();
 
@@ -33,8 +33,11 @@ namespace WebApplication1
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options =>
 {
-    options.LoginPath = "/login";
+    options.Cookie.Name = "MyAppSecureCookie";
+    options.LoginPath = "/account/login";
     options.AccessDeniedPath = "/api/account/accessdenied";
+    options.SlidingExpiration = false;
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
 });
             builder.Services.AddAuthorization();
 

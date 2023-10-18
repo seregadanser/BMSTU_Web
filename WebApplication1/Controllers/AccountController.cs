@@ -51,7 +51,7 @@ namespace WebApplication1.Controllers
             </head>
             <body>
              <h2>Login Form</h2>
-             <form method='post' action='/api/account/login'>
+             <form method='post' action='/account/login'>
             <p>
             <label>Email</label><br />
             <input name='email' />
@@ -70,13 +70,16 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult LoginPost(string email, string password)
+        public IActionResult LoginPost(/*string email, string password*/)
         {
             //var person = people.FirstOrDefault(p => p.Email == email && p.Password == password);
             //if (person == null)
             //{
             //    return Unauthorized();
             //}
+
+           string  email = Request.Form["email"];
+            string password = Request.Form["password"];
 
             State s =  model.Check(email, password);
 
@@ -95,7 +98,7 @@ namespace WebApplication1.Controllers
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(5)// AddMinutes(30) 
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1)// AddMinutes(30) 
             };
 
             HttpContext.SignInAsync(
@@ -106,7 +109,8 @@ namespace WebApplication1.Controllers
             conn[email] = ConnectionBuilder.CreateMSSQLconnection(config, email, password);
             Response.Cookies.Append("UserNameCookie", email, new CookieOptions
             {
-                Expires = DateTimeOffset.Now.AddMinutes(5),
+                
+                Expires = DateTimeOffset.Now.AddMinutes(1),
                 HttpOnly = true, 
                 Secure = true, 
             });

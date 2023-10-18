@@ -25,8 +25,12 @@ namespace WebApplication1.Controllers
         public Pagination<DB_course.Models.DBModels.PersonNoPassword> GetPersons()
         {
             //string[] p = {"p1", "p2" };
+            //if(User.Identity.Name == null)
+            //{
+            //    return null;
+            //}
             string bbb = User.Identity.Name;
-            string userName = Request.Cookies["UserNameCookie"];
+            string userName = User.Identity.Name;// Request.Cookies["UserNameCookie"];
             //_connection = ConnectionBuilder.CreateMSSQLconnection(config);
             model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(userConnections[userName])));
 
