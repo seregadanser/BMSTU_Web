@@ -11,8 +11,6 @@ tags:
     description: Операции над инвентарными предметами
   - name: freeInventoryProducts
     description: Операции над свободными инвентарными предметами
-  - name: usefulProducts
-    description: Посмотреть занятые предметы
   - name: usingProductsPlaces
     description: Операции над предметами со стороны кладовщика
 
@@ -408,6 +406,7 @@ paths:
       parameters:
         - { in: query, name: page, schema: { type: integer } }
         - { in: query, name: per_page, schema: { type: integer } }
+        - { in: query, name: using_filter, schema: { type: boolean } }
       responses:
         '200':
           description: Успешный запрос
@@ -421,7 +420,7 @@ paths:
                       results:
                         type: array
                         items:
-                          $ref: '#/components/schemas/WorkerLookCompose'
+                          $ref: '#/components/schemas/WorkerLookUsefulCompose'
         '400':
           description:  Неверные входные данные
         '401':
@@ -505,34 +504,6 @@ paths:
         '404':
           description: свободный инвентарный предмет не найден
 
-  /usefulProducts:
-    get:
-      tags:
-        - usefulProducts
-      summary: Получить список всех используемых предметов
-      parameters:
-        - { in: query, name: page, schema: { type: integer } }
-        - { in: query, name: per_page, schema: { type: integer } }
-      responses:
-        '200':
-          description: Успешный запрос
-          content:
-            application/json:
-              schema:
-                allOf:
-                  - $ref: "#/components/schemas/PaginatedResult"
-                  - type: object
-                    properties:
-                      results:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/WorkerLookUsefulCompose'
-        '400':
-          description:  Неверные входные данные
-        '401':
-          description: Пользователь не авторизован
-        '403':
-          description: Пользователь не имеет доступа  
 
   /usingProductsPlacess:
     get:
