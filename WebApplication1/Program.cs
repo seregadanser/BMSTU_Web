@@ -35,7 +35,7 @@ namespace WebApplication1
 {
     options.Cookie.Name = "MyAppSecureCookie";
     options.LoginPath = "/account/login";
-    options.AccessDeniedPath = "/api/account/accessdenied";
+    options.AccessDeniedPath = "/account/accessdenied";
     options.SlidingExpiration = false;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
 });
