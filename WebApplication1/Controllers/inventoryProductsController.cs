@@ -197,8 +197,18 @@ namespace WebApplication1.Controllers
                 return NotFound();
             }
 
-           ((WarehouseAdminModel)models[User.Identity.Name]).RemoveProduct(place);
-
+            try
+            {
+                ((WarehouseAdminModel)models[User.Identity.Name]).RemoveProduct(place);
+            }
+            catch (NoSuchObjectException ex)
+            {
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(405, ex.Message);
+            }
 
             return Ok();
         }

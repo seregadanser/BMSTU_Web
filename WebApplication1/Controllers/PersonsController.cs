@@ -46,16 +46,24 @@ namespace WebApplication1.Controllers
             //models["hradminn"] = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(con)));
 
             Pagination<PersonNoPassword> pagination = new Pagination<PersonNoPassword>();
-            List<PersonNoPassword> persons = ((HRAdminModel)models[User.Identity.Name]).LookPerson().Select(person => new PersonNoPassword
+            List<PersonNoPassword> persons = null;
+            try
             {
-                Id = person.Id,
-                DateOfBirthday = person.DateOfBirthday,
-                Login = person.Login,
-                Position = person.Position,
-                SecondName = person.SecondName,
-                Name = person.Name,
-                NumberOfCome = person.NumberOfCome
-            }).ToList();
+                persons = ((HRAdminModel)models[User.Identity.Name]).LookPerson().Select(person => new PersonNoPassword
+                {
+                    Id = person.Id,
+                    DateOfBirthday = person.DateOfBirthday,
+                    Login = person.Login,
+                    Position = person.Position,
+                    SecondName = person.SecondName,
+                    Name = person.Name,
+                    NumberOfCome = person.NumberOfCome
+                }).ToList();
+            }
+            catch 
+            {
+                return StatusCode(500);
+            }
 
             int currentPage = page ?? 1;
             int itemsPerPage = per_page ?? 10;
@@ -173,6 +181,10 @@ namespace WebApplication1.Controllers
             {
                 return NotFound();
             }
+            catch
+            {
+                return StatusCode(500);
+            }
 
             return Ok(p);
         }
@@ -198,17 +210,29 @@ namespace WebApplication1.Controllers
             {
                 return StatusCode(400);
             }
-
-            
-            DB_course.Models.DBModels.Person person = ((HRAdminModel)models[User.Identity.Name]).LookPerson(Convert.ToString(id)).FirstOrDefault();
+            DB_course.Models.DBModels.Person person = null;
+            try
+            {
+                person = ((HRAdminModel)models[User.Identity.Name]).LookPerson(Convert.ToString(id)).FirstOrDefault();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
 
             if (person==null || person.Id != id)
             {
                 return NotFound();
             }
 
-            ((HRAdminModel)models[User.Identity.Name]).RemovePerson(Convert.ToString(id));
-
+            try
+            {
+                ((HRAdminModel)models[User.Identity.Name]).RemovePerson(Convert.ToString(id));
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(405, ex.Message);
+            }
 
             return Ok();
         }
@@ -233,9 +257,15 @@ namespace WebApplication1.Controllers
             {
                 return StatusCode(400);
             }
-
-            DB_course.Models.DBModels.Person person = ((HRAdminModel)models[User.Identity.Name]).LookPerson(Convert.ToString(id)).FirstOrDefault();
-
+            DB_course.Models.DBModels.Person person = null;
+            try
+            {
+                person = ((HRAdminModel)models[User.Identity.Name]).LookPerson(Convert.ToString(id)).FirstOrDefault();
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
             if(person == null || person.Id != id)
             {
                 return NotFound();
