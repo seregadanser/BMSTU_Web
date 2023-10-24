@@ -70,7 +70,7 @@ namespace DB_course.Repositories.DBRepository
             catch(Exception ex)
             {
                 db.ChangeTracker.Clear();
-                //throw ex;
+                throw ex;
             }
             db.ChangeTracker.Clear();
         }

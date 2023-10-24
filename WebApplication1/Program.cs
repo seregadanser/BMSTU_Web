@@ -1,5 +1,6 @@
 using DB_course.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApplication1
 {
@@ -15,7 +16,8 @@ namespace WebApplication1
             Dictionary<string, IModel> models = new Dictionary<string, IModel>();
 
             IConfigurationRoot config = new ConfigurationBuilder()
-                .SetBasePath("D:\\Labs\\Web\\WebApplication1\\")
+                //.SetBasePath("D:\\Labs\\Web\\WebApplication1\\")
+                .SetBasePath("D:\\Tests\\Web\\WebApplication1\\")
                 .AddJsonFile("connstring.json")
                 .Build();
 

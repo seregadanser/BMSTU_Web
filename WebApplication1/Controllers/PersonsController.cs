@@ -131,9 +131,13 @@ namespace WebApplication1.Controllers
             {
                 return StatusCode(400);
             }
-            catch(Exception ex)
+            catch(ExistException ex)
             {
                 return StatusCode(409);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500);
             }
             return Ok(p);
         }

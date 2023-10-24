@@ -24,6 +24,13 @@ namespace DB_course.Models
         public IdException(string value) : base(value)
         { }
     }
+
+    public class ExistException : Exception
+    {
+        public ExistException(string value) : base(value)
+        { }
+    }
+
     public class DataValidateModel
     {
         public void Validate(object model)

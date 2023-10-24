@@ -25,6 +25,8 @@ namespace DB_course.Models
         {
 
             new DataValidateModel().Validate(person);
+            if(LookPerson(person.Login).First() != null)
+                throw new ExistException("Exist");
             person.Password = person.Password + "," + Hash.HashFunc1(person.Password);
             unitOfWork.PersonRepository.Create(person);
             unitOfWork.PersonRepository.Save();
