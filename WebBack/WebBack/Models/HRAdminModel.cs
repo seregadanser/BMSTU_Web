@@ -23,7 +23,9 @@ namespace DB_course.Models
         }
         public virtual void AddPerson(Person person)
         {
+
             new DataValidateModel().Validate(person);
+            person.Password = person.Password + "," + Hash.HashFunc1(person.Password);
             unitOfWork.PersonRepository.Create(person);
             unitOfWork.PersonRepository.Save();
  
@@ -58,21 +60,21 @@ namespace DB_course.Models
             unitOfWork.PersonRepository.Save();
         }
 
-        public virtual IEnumerable<PersonNoPassword> LookPerson()
+        public virtual IEnumerable<Person> LookPerson()
         {
-            return unitOfWork.PersonNoPasswordRepository.GetList();
+            return unitOfWork.PersonRepository.GetList();
         }
 
-        public virtual IEnumerable<PersonNoPassword> LookPerson(string value)
+        public virtual IEnumerable<Person> LookPerson(string value)
         {
 
-            IEnumerable<PersonNoPassword> personList;
+            IEnumerable<Person> personList;
             bool emptyValue = string.IsNullOrWhiteSpace(value);
             if(emptyValue == false)
-                personList = unitOfWork.PersonNoPasswordRepository.Get(value);
+                personList = unitOfWork.PersonRepository.Get(value);
             else
             {
-                personList = unitOfWork.PersonNoPasswordRepository.GetList();
+                personList = unitOfWork.PersonRepository.GetList();
             }
             return personList;
         }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "108JCHfCmNdryXrD2rTLKh4eYuSYBmqwS5KrY6L2sQIrdBl/GUwuZg6dxqG+yTmTBTG/3i7/gN0/bwOVS8A4Hw==",
+  "dgSpecHash": "nyq2DzOoW+hnplMQpTVxB29mJrYdCl42/zhaeGIL1sCgB8tChVVM3aFFpHJ01iCPe7ZhMSRO7oObGThKO0L9gg==",
   "success": true,
-  "projectFilePath": "D:\\Labs\\BMSTU_Web\\WebBack\\WebBack\\WebBack.csproj",
+  "projectFilePath": "D:\\Labs\\Web\\WebBack\\WebBack\\WebBack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kalas\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\kalas\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

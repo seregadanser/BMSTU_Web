@@ -75,5 +75,12 @@ namespace DB_course.Models
 
             return password;
         }
+        public static string HashFunc1(string password)
+        {
+            char[] charArray = password.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
+
     }
 }

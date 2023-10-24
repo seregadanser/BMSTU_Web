@@ -37,7 +37,7 @@ namespace DB_course.Repositories.DBRepository
 
         public void Delete(string key)
         {
-            Person book = db.Persons.Find(key);
+            Person book = db.Persons.Find(Convert.ToInt32(key));
             if (book == null) throw new Exception("person not Exists");
                 db.Persons.Remove(book);
         }
@@ -45,12 +45,13 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<Person> Get(string value)
         {
-            var petList = new List<Person>();
-            int petId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
-            string petName = value;
+           // var petList = new List<Person>();
+            int petId = 
+                int.TryParse(value, out _) ? Convert.ToInt32(value) : -1;
+          //  string petName = value;
 
             return (from user in db.Persons
-                    where EF.Functions.Like(user.Name!, value) || EF.Functions.Like(user.Login!, value)
+                    where user.Id == petId || EF.Functions.Like(user.Login!, value)
                     select user).ToList();
 
         }
@@ -69,7 +70,7 @@ namespace DB_course.Repositories.DBRepository
             catch(Exception ex)
             {
                 db.ChangeTracker.Clear();
-                throw ex;
+                //throw ex;
             }
             db.ChangeTracker.Clear();
         }
@@ -88,104 +89,6 @@ namespace DB_course.Repositories.DBRepository
             if (!disposed)
             {
                 if (disposing)
-                {
-                    db.Dispose();
-                }
-            }
-            disposed = true;
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-    }
-
-    public class PersonNoPasswordRepository : ISQLRepository<PersonNoPassword>
-    {
-        private WarehouseContext db;
-
-        public IConnection DB { set { db = (WarehouseContext)value; } }
-
-        public PersonNoPasswordRepository(IConnection db)
-        {
-            this.db = (WarehouseContext)db;
-        }
-
-        public void Create(PersonNoPassword item)
-        {
-           
-        }
-
-        public void Delete(string key)
-        {
-
-        }
-
-
-        public IEnumerable<PersonNoPassword> Get(string value)
-        {
-            var petList = new List<Person>();
-            int petId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
-            string petName = value;
-
-            return (from I in db.Persons
-                    where EF.Functions.Like(I.Name!, value) || EF.Functions.Like(I.Login!, value)
-                    select new PersonNoPassword
-                    {
-                        Login = I.Login,
-                        Name = I.Name,
-                        SecondName = I.SecondName,
-                        Position = I.Position,
-                        DateOfBirthday = I.DateOfBirthday,
-                        NumberOfCome = I.NumberOfCome
-                    }).ToList();
-        }
-
-        public IEnumerable<PersonNoPassword> GetList()
-        {
-            var P = from I in db.Persons
-                    select new PersonNoPassword
-                    {
-                        Login = I.Login,
-                        Name = I.Name,
-                        SecondName = I.SecondName,
-                        Position = I.Position,
-                        DateOfBirthday = I.DateOfBirthday,
-                        NumberOfCome = I.NumberOfCome
-                    };
-            return P.ToList();
-        }
-
-        public void Save()
-        {
-            try
-            {
-                db.SaveChanges();
-            }
-            catch(Exception ex)
-            {
-                db.ChangeTracker.Clear();
-                throw ex;
-            }
-            db.ChangeTracker.Clear();
-        }
-
-        public void Update(PersonNoPassword item)
-        {
-
-        }
-
-        private bool disposed = false;
-
-
-
-        public virtual void Dispose(bool disposing)
-        {
-            if(!disposed)
-            {
-                if(disposing)
                 {
                     db.Dispose();
                 }

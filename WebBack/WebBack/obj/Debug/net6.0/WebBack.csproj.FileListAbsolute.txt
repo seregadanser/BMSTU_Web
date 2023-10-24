@@ -26,3 +26,17 @@ D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\refint\WebBack.dll
 D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.pdb
 D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.genruntimeconfig.cache
 D:\Labs\BMSTU_Web\WebBack\WebBack\obj\Debug\net6.0\ref\WebBack.dll
+D:\Labs\Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.deps.json
+D:\Labs\Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.runtimeconfig.json
+D:\Labs\Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.dll
+D:\Labs\Web\WebBack\WebBack\bin\Debug\net6.0\WebBack.pdb
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.csproj.AssemblyReference.cache
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.GeneratedMSBuildEditorConfig.editorconfig
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.AssemblyInfoInputs.cache
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.AssemblyInfo.cs
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.csproj.CoreCompileInputs.cache
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.dll
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\refint\WebBack.dll
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.pdb
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\WebBack.genruntimeconfig.cache
+D:\Labs\Web\WebBack\WebBack\obj\Debug\net6.0\ref\WebBack.dll

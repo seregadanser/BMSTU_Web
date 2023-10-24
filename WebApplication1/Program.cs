@@ -10,7 +10,9 @@ namespace WebApplication1
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            Dictionary<string, IConnection> userConnections = new Dictionary<string, IConnection>();
+        //    Dictionary<string, IConnection> userConnections = new Dictionary<string, IConnection>();
+
+            Dictionary<string, IModel> models = new Dictionary<string, IModel>();
 
             IConfigurationRoot config = new ConfigurationBuilder()
                 .SetBasePath("D:\\Labs\\Web\\WebApplication1\\")
@@ -28,14 +30,15 @@ namespace WebApplication1
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSingleton<Dictionary<string, IConnection>>(userConnections);
+
+            builder.Services.AddSingleton<Dictionary<string, IModel>>(models);
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options =>
 {
     options.Cookie.Name = "MyAppSecureCookie";
-    options.LoginPath = "/account/login";
-    options.AccessDeniedPath = "/account/accessdenied";
+   // options.LoginPath = "/account/login";
+   // options.AccessDeniedPath = "/account/accessdenied";
     options.SlidingExpiration = false;
     options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
 });

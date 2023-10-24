@@ -14,7 +14,6 @@ namespace DB_course.Repositories
     public interface IUnitOfWork
     {
         public IRepository<Person> PersonRepository { get; }
-        public IRepository<PersonNoPassword> PersonNoPasswordRepository { get; }
         public IRepository<Place> PlaceRepository { get; }
         public IRepository<Useful> UsefulRepository { get; }
         public IRepository<WarehousemanLookCompose> WarehousemanLookComposeRepository { get; }
@@ -33,7 +32,6 @@ namespace DB_course.Repositories
         private IRepositoryAbstractFabric fabric;
 
         private IRepository<Person> personRep;
-        public IRepository<PersonNoPassword> personNoPasswordRep;
         private IRepository<Place> placeRep;
         private IRepository<Useful> usefulRep;
         private IRepository<WarehousemanLookCompose> warehousemanLookComposeRep;
@@ -54,15 +52,6 @@ namespace DB_course.Repositories
             }
         }
 
-        public IRepository<PersonNoPassword> PersonNoPasswordRepository
-        {
-            get
-            {
-                if(personNoPasswordRep == null)
-                    personNoPasswordRep = fabric.CreatePersonNPR();
-                return personNoPasswordRep;
-            }
-        }
 
         public IRepository<Place> PlaceRepository
         {

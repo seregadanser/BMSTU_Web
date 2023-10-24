@@ -56,9 +56,10 @@ public partial class WarehouseContext : DbContext, IConnection
 
         modelBuilder.Entity<Person>(entity =>
         {
-            entity.HasKey(e => e.Login).HasName("PK__Persons__5E55825A7D236D07");
+            entity.HasKey(e => e.Id).HasName("PK__Persons__5E55825A7D236D07");
 
-            entity.HasIndex(e => e.Password, "UQ__Persons__6E2DBEDEE13B4EDB").IsUnique();
+            entity.HasIndex(e => e.Password).IsUnique();
+            entity.HasIndex(e => e.Login).IsUnique();
 
             entity.Property(e => e.Login)
                 .HasMaxLength(50)
@@ -89,7 +90,7 @@ public partial class WarehouseContext : DbContext, IConnection
 
             entity.ToTable("Place", "warehouse2");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            //entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.NumberLayer).HasColumnName("number_layer");
             entity.Property(e => e.NumberStay).HasColumnName("number_stay");
             entity.Property(e => e.Size).HasColumnName("size");

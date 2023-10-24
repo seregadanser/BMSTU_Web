@@ -77,7 +77,7 @@ namespace DB_course.Repositories.DBRepository
 
         public void Update(Place item)
         {
-            throw new NotImplementedException();
+            db.Entry(item).State = EntityState.Modified;
         }
     }
 }

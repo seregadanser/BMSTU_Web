@@ -15,7 +15,6 @@ namespace DB_course.Repositories
     public interface IRepositoryAbstractFabric
     {
         public IRepository<Person> CreatePersonR();
-        public IRepository<PersonNoPassword> CreatePersonNPR();
         public IRepository<Place> CreatePlaceR();
         public IRepository<Useful> CreateUsefulR();
         public IRepository<WarehousemanLookCompose> CreateWarehousemanLookComposeRepositoryR();
@@ -49,11 +48,6 @@ namespace DB_course.Repositories
         public IRepository<Person> CreatePersonR()
         {
             return new PersonRepository(connection);
-        }
-
-        public IRepository<PersonNoPassword> CreatePersonNPR()
-        {
-            return new PersonNoPasswordRepository(connection);
         }
 
         public IRepository<PlaceofObject> CreatePlaceofObjectR()

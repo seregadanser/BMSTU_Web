@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using DB_course;
 using DB_course.Models;
 using DB_course.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplication1.Controllers
 {
@@ -22,18 +23,21 @@ namespace WebApplication1.Controllers
         public string Name { get; set; }
     }
 
+    
     [Route("[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
     {
+        string[] s = new string[2] { "hradmin", "worker" };
+ 
         //private List<Person> people; // Замените это на ваше хранилище пользователей
         private AUnLoginModel model;
-        private Dictionary<string, IConnection> conn;
+        private Dictionary<string, IModel> models;
         IConfigurationRoot config;
         //IConnection _connection;
-        public AccountController(IConfigurationRoot config, Dictionary<string, IConnection> userConnections)
+        public AccountController(IConfigurationRoot config, Dictionary<string, IModel> userModels)
         {
-            conn = userConnections;
+            models = userModels;
             this.config = config;
             model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(ConnectionBuilder.CreateMSSQLconnection(config))));
  
@@ -70,7 +74,7 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult LoginPost(/*string email, string password*/)
+        public IActionResult LoginPost( string email,string password)
         {
             //var person = people.FirstOrDefault(p => p.Email == email && p.Password == password);
             //if (person == null)
@@ -78,16 +82,26 @@ namespace WebApplication1.Controllers
             //    return Unauthorized();
             //}
 
-           string  email = Request.Form["email"];
-            string password = Request.Form["password"];
-
-            State s =  model.Check(email, password);
-
-            if(s == State.INVALID)
+            //   string  email = Request.Form["email"];
+            //    string password = Request.Form["password"];
+            State s;
+            try
+            {
+                s = model.Check(email, password);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(404);
+            }
+            if (s == State.INVALID)
             {
                 return Unauthorized();
             }
- 
+            //int a = 0;
+            //if (email == "aa")
+            //    a = 1;
+            
+        
             var claims = new List<Claim>
             {
             new Claim(ClaimTypes.Name, email),
@@ -98,7 +112,7 @@ namespace WebApplication1.Controllers
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(1)// AddMinutes(30) 
+                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)// AddMinutes(30) 
             };
 
             HttpContext.SignInAsync(
@@ -106,16 +120,35 @@ namespace WebApplication1.Controllers
                 new ClaimsPrincipal(claimsIdentity),
                 authProperties).Wait();
 
-            conn[email] = ConnectionBuilder.CreateMSSQLconnection(config, email, password);
+            IConnection con = ConnectionBuilder.CreateMSSQLconnection(config, email, Hash.HashFunc1(password));
+
+            switch (model.Proffesion)
+            {
+                case "worker":
+                    models[email] = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(con)), email);
+                    break;
+                case "admin":
+                    models[email] = new WarehouseAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(con)));
+                    break;
+                case "hradmin":
+                    models[email] = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(con)));
+                    break;
+                case "warehouseman":
+                    models[email] = new WarehousemanModel(new UnitOfWork(new SQLRepositoryAbstractFabric(con)));
+                    break;
+            }
+                        
             Response.Cookies.Append("UserNameCookie", email, new CookieOptions
             {
                 
-                Expires = DateTimeOffset.Now.AddMinutes(1),
+                Expires = DateTimeOffset.Now.AddMinutes(10),
                 HttpOnly = true, 
                 Secure = true, 
             });
 
-            return Redirect("/Persons");
+            // a++;
+            //return Redirect("/Persons");
+            return Ok();
         }
 
         [HttpGet("logout")]
