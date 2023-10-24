@@ -26,7 +26,7 @@ go
 
 create table warehouse2.Place
 (
-Id int primary key, 
+Id int IDENTITY(1,1) primary key, 
 number_stay int not null,
 number_layer int not null, 
 size int not null
@@ -43,7 +43,8 @@ go
 
 create table dbo.Persons
 (
-[Login] varchar(50) primary key,
+Id int IDENTITY(1,1) PRIMARY KEY,
+[Login] varchar(50) unique,
 [Name] varchar(50), 
 SecondName varchar(50),
 Position varchar(50),

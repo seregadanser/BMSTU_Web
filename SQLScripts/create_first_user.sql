@@ -8,6 +8,8 @@ go
 
 select * from dbo.Persons
 
+--delete dbo.Persons where dbo.Persons.Id = 2
+
 use master
 go
 
