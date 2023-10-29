@@ -38,12 +38,7 @@ namespace WebApplication1.Controllers
             }
 
             //Pagination<PlaceNoId> pagination = new Pagination<PlaceNoId>();
-            List<PlaceNoId> places = ((WarehouseAdminModel)models[User.Identity.Name]).GetPlace().Select(place => new PlaceNoId
-            {
-                NumberLayer = place.NumberLayer,
-                NumberStay = place.NumberStay,
-                Size = place.Size
-            }).ToList();
+            List<Place> places = ((WarehouseAdminModel)models[User.Identity.Name]).GetPlace().ToList();
 
             int currentPage = page ?? 1;
             int itemsPerPage = per_page ?? 10;
@@ -62,11 +57,11 @@ namespace WebApplication1.Controllers
             }
 
             // Выбираем только элементы для текущей страницы
-            List<PlaceNoId> itemsToDisplay = places.Skip((currentPage - 1) * itemsPerPage)
+            List<Place> itemsToDisplay = places.Skip((currentPage - 1) * itemsPerPage)
                                                    .Take(itemsPerPage)
                                                    .ToList();
 
-            Pagination<PlaceNoId> pagination = new Pagination<PlaceNoId>
+            Pagination<Place> pagination = new Pagination<Place>
             {
                 page = currentPage,
                 per_page = itemsPerPage,

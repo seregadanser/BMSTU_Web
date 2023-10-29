@@ -13,9 +13,8 @@ namespace WebApplication1.Controllers
 {
     public class Person
     {
-        public string Email { get; set; }
+        public string Login { get; set; }
         public string Password { get; set; }
-        public Role Role { get; set; }
     }
 
     public class Role
@@ -74,20 +73,21 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult LoginPost( string email,string password)
+        public IActionResult LoginPost([FromBody][Required]  Person person)
         {
             //var person = people.FirstOrDefault(p => p.Email == email && p.Password == password);
             //if (person == null)
             //{
             //    return Unauthorized();
             //}
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            string email = person.Login;
+            string password = person.Password;
 
-            //   string  email = Request.Form["email"];
-            //    string password = Request.Form["password"];
             State s;
             try
             {
-                s = model.Check(email, password);
+                s = model.Check(person.Login, person.Password);
             }
             catch(Exception ex)
             {
@@ -104,7 +104,7 @@ namespace WebApplication1.Controllers
         
             var claims = new List<Claim>
             {
-            new Claim(ClaimTypes.Name, email),
+            new Claim(ClaimTypes.Name, person.Login),
             new Claim(ClaimTypes.Role, model.Proffesion)
             };
 
@@ -161,12 +161,12 @@ namespace WebApplication1.Controllers
 
 
 
-        [HttpGet("accessdenied")]
-        [Authorize]
-        public IActionResult Errors()
-        {
-            //HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
-            return Forbid();
-        }
+        //[HttpGet("accessdenied")]
+        //[Authorize]
+        //public IActionResult Errors()
+        //{
+        //    //HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
+        //    return Forbid();
+        //}
     }
 }

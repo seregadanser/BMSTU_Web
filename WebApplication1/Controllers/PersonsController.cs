@@ -14,6 +14,7 @@ using System.Numerics;
 namespace WebApplication1.Controllers
 {
 //    [Authorize(Roles = "hradmin")]
+
     [Route("[controller]")]
     [ApiController]
     public class PersonsController : ControllerBase
@@ -33,6 +34,8 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(403)]
         public IActionResult GetPersons([FromQuery] int? page, [FromQuery] int? per_page)
         {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            
             if (!User.Identity.IsAuthenticated)
             {
                 return StatusCode(401, "Unauthorized");
@@ -104,6 +107,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(409)]
         public IActionResult PostPerson([FromBody][Required] PersonNoId p)
         {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             if (!User.Identity.IsAuthenticated)
             {
                 return StatusCode(401, "Unauthorized");
@@ -150,6 +154,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(404)]
         public IActionResult PatchPerson([FromRoute] int id, [FromBody][Required] PersonNoId p)
         {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             if (!User.Identity.IsAuthenticated)
             {
                 return StatusCode(401, "Unauthorized");
@@ -201,7 +206,9 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(404)]
         public IActionResult DeletePerson([FromRoute][Required] int id)
         {
-            if (!User.Identity.IsAuthenticated)
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
+
+            if(!User.Identity.IsAuthenticated)
             {
                 return StatusCode(401, "Unauthorized");
             }
@@ -249,6 +256,7 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(404)]
         public IActionResult GetPerson([FromRoute] int id)
         {
+            Response.Headers.Add("Access-Control-Allow-Origin", "*");
             if (!User.Identity.IsAuthenticated)
             {
                 return StatusCode(401, "Unauthorized");

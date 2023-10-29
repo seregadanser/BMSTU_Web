@@ -1,5 +1,7 @@
 using DB_course.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace WebApplication1
@@ -34,6 +36,9 @@ namespace WebApplication1
 
 
             builder.Services.AddSingleton<Dictionary<string, IModel>>(models);
+            
+            builder.Services.AddCors();
+
 
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
 .AddCookie(options =>
@@ -51,12 +56,30 @@ namespace WebApplication1
             // Configure the HTTP request pipeline.
             if(app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
+                //app.UseSwagger();
+                //app.UseSwaggerUI(options =>
+                //{
+                //    options.SwaggerEndpoint("./swagger/v1/swagger.json", "v1");
+                //    options.RoutePrefix = string.Empty;
+                //});
+
+                app.UseSwagger(c =>
+                {
+                    c.PreSerializeFilters.Add((swagger, httpReq) =>
+                    {
+                        swagger.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}/{httpReq.Headers["X-Forwarded-Prefix"]}" } };
+                    });
+                });
+
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("./swagger/v1/swagger.json", "My API V1");
+                    c.RoutePrefix = string.Empty;
+                });
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 
             app.UseAuthentication();
