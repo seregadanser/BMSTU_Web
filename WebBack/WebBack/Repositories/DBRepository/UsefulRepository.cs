@@ -53,7 +53,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<Useful> GetList()
         {
-            return db.Usefuls.ToList();
+            return db.Usefuls.OrderBy(c=>c.InventoryId).ToList();
         }
 
         public void Save()

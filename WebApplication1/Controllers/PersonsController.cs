@@ -20,11 +20,14 @@ namespace WebApplication1.Controllers
     public class PersonsController : ControllerBase
     {
         Dictionary<string, IModel> models;
+        ILogger<Program> logger;
 
 
-        public PersonsController(Dictionary<string, IModel> userModels) 
+        public PersonsController(Dictionary<string, IModel> userModels, ILogger<Program> logger) 
         {
             models = userModels;
+            this.logger = logger;
+      
         }
 
         [HttpGet]
@@ -34,13 +37,15 @@ namespace WebApplication1.Controllers
         [ProducesResponseType(403)]
         public IActionResult GetPersons([FromQuery] int? page, [FromQuery] int? per_page)
         {
+            //Console.WriteLine("GetREq");
             Response.Headers.Add("Access-Control-Allow-Origin", "*");
-            
-            if (!User.Identity.IsAuthenticated)
+            Microsoft.Extensions.Logging.LoggerExtensions.LogInformation(logger,"Client Get Persons");
+
+            if(!User.Identity.IsAuthenticated)
             {
                 return StatusCode(401, "Unauthorized");
             }
-            if (!User.HasClaim(c => c.Type == ClaimTypes.Role && c.Value == "hradmin"))
+            if(!User.HasClaim(c => c.Type == ClaimTypes.Role && c.Value == "hradmin"))
             {
                 return StatusCode(403, "Access denied");
             }
@@ -52,16 +57,7 @@ namespace WebApplication1.Controllers
             List<PersonNoPassword> persons = null;
             try
             {
-                persons = ((HRAdminModel)models[User.Identity.Name]).LookPerson().Select(person => new PersonNoPassword
-                {
-                    Id = person.Id,
-                    DateOfBirthday = person.DateOfBirthday,
-                    Login = person.Login,
-                    Position = person.Position,
-                    SecondName = person.SecondName,
-                    Name = person.Name,
-                    NumberOfCome = person.NumberOfCome
-                }).ToList();
+                persons = ((HRAdminModel)models[User.Identity.Name]).LookPerson().Select(person => PersonConverter.ConvertToPersonNoPassword(person)).ToList();
             }
             catch 
             {
@@ -119,17 +115,7 @@ namespace WebApplication1.Controllers
 
             try
             {
-                ((HRAdminModel)models[User.Identity.Name]).AddPerson(new DB_course.Models.DBModels.Person
-                {
-                    Id = 0,
-                    Login = p.Login,
-                    Position = p.Position,
-                    Password = p.Password,
-                    NumberOfCome = 0,
-                    Name = p.Name,
-                    SecondName = p.SecondName,
-                    DateOfBirthday = p.DateOfBirthday
-                });
+                ((HRAdminModel)models[User.Identity.Name]).AddPerson(PersonConverter.ConvertFromPersonNoId(p));
             }
             catch(DB_course.Models.ValidationException ex)
             {
@@ -170,17 +156,7 @@ namespace WebApplication1.Controllers
 
             try
             {
-                ((HRAdminModel)models[User.Identity.Name]).UpdatePerson(Convert.ToString(id),new DB_course.Models.DBModels.Person
-                {
-                    Id = id,
-                    Login = p.Login,
-                    Position = p.Position,
-                    Password = p.Password,
-                    NumberOfCome = 0,
-                    Name = p.Name,
-                    SecondName = p.SecondName,
-                    DateOfBirthday = p.DateOfBirthday
-                });
+                ((HRAdminModel)models[User.Identity.Name]).UpdatePerson(Convert.ToString(id),PersonConverter.ConvertFromPersonNoId(p));
             }
             catch (DB_course.Models.ValidationException ex)
             {
@@ -284,16 +260,7 @@ namespace WebApplication1.Controllers
             }
 
 
-            PersonNoPassword p = new PersonNoPassword
-            {
-                Id = person.Id,
-                DateOfBirthday = person.DateOfBirthday,
-                Login = person.Login,
-                Position = person.Position,
-                SecondName = person.SecondName,
-                Name = person.Name,
-                NumberOfCome = person.NumberOfCome
-            };
+            PersonNoPassword p = PersonConverter.ConvertToPersonNoPassword(person);
 
             return Ok(p);
         }

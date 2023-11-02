@@ -58,7 +58,7 @@ namespace DB_course.Repositories.DBRepository
         public IEnumerable<Place> GetList()
         {
             db.ChangeTracker.Clear();
-            return db.Places.ToList();
+            return db.Places.OrderBy(c=>c.Id).ToList();
         }
 
         public void Save()

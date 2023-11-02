@@ -1,4 +1,5 @@
 using DB_course.Models;
+using DB_course.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
@@ -54,16 +55,19 @@ namespace WebApplication1
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if(app.Environment.IsDevelopment())
-            {
-                //app.UseSwagger();
-                //app.UseSwaggerUI(options =>
-                //{
-                //    options.SwaggerEndpoint("./swagger/v1/swagger.json", "v1");
-                //    options.RoutePrefix = string.Empty;
-                //});
+            // if(app.Environment.IsDevelopment())
+            //{
+            //app.UseSwagger();
+            //app.UseSwaggerUI(options =>
+            //{
+            //    options.SwaggerEndpoint("./swagger/v1/swagger.json", "v1");
+            //    options.RoutePrefix = string.Empty;
+            //});
 
-                app.UseSwagger(c =>
+            //IConnection con = ConnectionBuilder.CreateMSSQLconnection(config, "hradminn", Hash.HashFunc1("123456"));
+            //models["hradmin"] = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(con)));
+
+            app.UseSwagger(c =>
                 {
                     c.PreSerializeFilters.Add((swagger, httpReq) =>
                     {
@@ -76,7 +80,7 @@ namespace WebApplication1
                     c.SwaggerEndpoint("./swagger/v1/swagger.json", "My API V1");
                     c.RoutePrefix = string.Empty;
                 });
-            }
+          //  }
 
             app.UseHttpsRedirection();
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

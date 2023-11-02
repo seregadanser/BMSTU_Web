@@ -58,7 +58,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<Person> GetList()
         {
-            return db.Persons.ToList();
+            return db.Persons.OrderBy(c=> c.Id).ToList();
         }
 
         public void Save()

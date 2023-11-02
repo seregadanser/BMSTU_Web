@@ -51,7 +51,7 @@ namespace DB_course.Repositories.DBRepository
         public IEnumerable<InventoryProduct> GetList()
         {
             db.ChangeTracker.Clear();
-            return db.InventoryProducts.ToList();
+            return db.InventoryProducts.OrderBy(c=> c.InventoryNumber).ToList();
         }
 
 

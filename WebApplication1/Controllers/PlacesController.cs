@@ -128,13 +128,7 @@ namespace WebApplication1.Controllers
 
             try
             {
-                ((WarehouseAdminModel)models[User.Identity.Name]).AddPlace(new Place
-                {
-                    Id = 0,
-                    NumberLayer = place.NumberLayer,
-                    NumberStay = place.NumberStay,
-                    Size = place.Size
-                });
+                ((WarehouseAdminModel)models[User.Identity.Name]).AddPlace(PlaceConverter.ConvertFromPlaceNoId(place));
             }
             catch (DB_course.Models.ValidationException ex)
             {
@@ -173,13 +167,7 @@ namespace WebApplication1.Controllers
 
             try
             {
-                ((WarehouseAdminModel)models[User.Identity.Name]).UpdatePlace(id,new Place
-                {
-                    Id = id,
-                    NumberLayer = place.NumberLayer,
-                    NumberStay = place.NumberStay,
-                    Size = place.Size
-                });
+                ((WarehouseAdminModel)models[User.Identity.Name]).UpdatePlace(id,PlaceConverter.ConvertFromPlaceNoId(place, id));
             }
             catch (DB_course.Models.ValidationException ex)
             {

@@ -39,15 +39,7 @@ namespace WebApplication1.Controllers
 
            // Pagination<AdminComposeShort> pagination = new Pagination<AdminComposeShort>();
             List<AdminComposeShort> places = ((WarehouseAdminModel)models[User.Identity.Name]).GetProducts().Select(product =>
-            new AdminComposeShort
-            {
-                ProductId = product.ProductId,
-                Name = product.Name,
-                DateCome = product.DateCome,
-                DateProduction = product.DateProduction,
-                InventoryNumber = product.InventoryNumber,
-                PlaceId = product.PlaceId
-            }).ToList();
+           AdminComposeConverter.ConvertToAdminComposeShort(product)).ToList();
 
             int currentPage = page ?? 1;
             int itemsPerPage = per_page ?? 10;
@@ -109,15 +101,7 @@ namespace WebApplication1.Controllers
             }
 
             AdminComposeShort place = ((WarehouseAdminModel)models[User.Identity.Name]).GetProducts(Convert.ToString(id)).Select(product=>
-            new AdminComposeShort
-            {
-                ProductId = product.ProductId,
-                Name = product.Name,
-                DateCome = product.DateCome,
-                DateProduction = product.DateProduction,
-                InventoryNumber = product.InventoryNumber,
-                PlaceId = product.PlaceId
-            }).FirstOrDefault();
+          AdminComposeConverter.ConvertToAdminComposeShort(product)).FirstOrDefault();
 
             if (place == null || place.InventoryNumber != id)
             {
@@ -147,15 +131,8 @@ namespace WebApplication1.Controllers
 
             try
             {
-                ((WarehouseAdminModel)models[User.Identity.Name]).AddProduct(new AdminCompose
-                {
-                    ProductId = product.ProductId,
-                    Name = product.Name,
-                    DateCome = product.DateCome,
-                    DateProduction = product.DateProduction,
-                    InventoryNumber = product.InventoryNumber,
-                    PlaceId = product.PlaceId
-                });
+                ((WarehouseAdminModel)models[User.Identity.Name]).AddProduct(AdminComposeConverter.ConvertFromAdminComposeShort(product)
+                );
             }
             catch (DB_course.Models.ValidationException ex)
             {
