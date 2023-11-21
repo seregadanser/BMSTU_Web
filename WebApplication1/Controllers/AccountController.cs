@@ -8,6 +8,10 @@ using DB_course;
 using DB_course.Models;
 using DB_course.Repositories;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 
 namespace WebApplication1.Controllers
 {
@@ -22,7 +26,15 @@ namespace WebApplication1.Controllers
         public string Name { get; set; }
     }
 
-    
+    public class AuthOptions
+    {
+        public const string ISSUER = "MyAuthServer"; // издатель токена
+        public const string AUDIENCE = "MyAuthClient"; // потребитель токена
+        const string KEY = "mysupersecret_secretkey!123";   // ключ для шифрации
+        public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
+    }
+
     [Route("[controller]")]
     [ApiController]
     public class AccountController : ControllerBase
@@ -73,6 +85,10 @@ namespace WebApplication1.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
         public IActionResult LoginPost([FromBody][Required]  Person person)
         {
             //var person = people.FirstOrDefault(p => p.Email == email && p.Password == password);
@@ -108,18 +124,6 @@ namespace WebApplication1.Controllers
             new Claim(ClaimTypes.Role, model.Proffesion)
             };
 
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(10)// AddMinutes(30) 
-            };
-
-            HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                authProperties).Wait();
-
             IConnection con = ConnectionBuilder.CreateMSSQLconnection(config, email, Hash.HashFunc1(password));
 
             switch (model.Proffesion)
@@ -137,18 +141,26 @@ namespace WebApplication1.Controllers
                     models[email] = new WarehousemanModel(new UnitOfWork(new SQLRepositoryAbstractFabric(con)));
                     break;
             }
-                        
-            Response.Cookies.Append("UserNameCookie", email, new CookieOptions
+
+            var jwt = new JwtSecurityToken(
+             issuer: AuthOptions.ISSUER,
+             audience: AuthOptions.AUDIENCE,
+            claims: claims,
+            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
+             signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            // формируем ответ
+            var response = new
             {
-                
-                Expires = DateTimeOffset.Now.AddMinutes(10),
-                HttpOnly = true, 
-                Secure = true, 
-            });
+                id_token = encodedJwt,
+                position = model.Proffesion
+            };
 
             // a++;
             //return Redirect("/Persons");
-            return Ok();
+            //string response = "{\"position\": \"" + model.Proffesion + "\"}";
+            return Ok(response);
         }
 
         [HttpGet("logout")]
