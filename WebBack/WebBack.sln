@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebBack", "WebBack\WebBack.csproj", "{9A17A1A0-B25D-4D95-BB79-5B43E87E7D7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebBack", "WebBack\WebBack.csproj", "{9A17A1A0-B25D-4D95-BB79-5B43E87E7D7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
