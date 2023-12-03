@@ -36,7 +36,7 @@ namespace DB_course.Repositories.DBRepository
 
         public void Delete(string key)
         {
-            Product book = db.Products.Find(Convert.ToInt32(key));
+            Product book = db.Products.Find(Convert.ToInt32(key)) ?? db.Products.First(p=>p.Id == Convert.ToInt32(key));
             if(book == null)
                 throw new Exception("product not Exists");
             db.Products.Remove(book);

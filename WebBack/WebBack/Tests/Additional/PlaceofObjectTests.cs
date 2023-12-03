@@ -49,6 +49,14 @@ namespace WebBack.Tests.Additional
                 .WithInventoryId(456)
                 .Build();
         }
+        public static PlaceofObject CreateValidPlaceofObject1()
+        {
+            return new PlaceofObjectBuilder()
+                .WithId(2)
+                .WithPlaceId(1213)
+                .WithInventoryId(4536)
+                .Build();
+        }
     }
 
 }

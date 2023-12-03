@@ -33,7 +33,7 @@ namespace DB_course.Repositories.CompositRepository
 
             var A = from D1 in D
                     join U in db.Usefuls on D1.InventoryNumber equals U.InventoryId
-                    where EF.Functions.Like(U.PersonId!, value)
+                    where U.PersonId == value
                     select new WorkerLookUsefulCompose
                     {
                         Inventory_number = (int)D1.InventoryNumber,
