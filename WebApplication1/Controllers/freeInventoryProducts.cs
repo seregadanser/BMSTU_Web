@@ -137,6 +137,7 @@ namespace WebApplication1.Controllers
 
             try
             {
+                
                 ((WorkerModel)models[User.Identity.Name]).AddUseful(product);
             }
             catch (DB_course.Models.ValidationException ex)

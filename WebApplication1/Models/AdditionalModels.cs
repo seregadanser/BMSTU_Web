@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using DB_course.Models.DBModels;
 using DB_course.Models.CompositModels;
+//using WebApplication1.Controllers;
 
 namespace WebApplication1.Models
 {
@@ -23,7 +24,7 @@ namespace WebApplication1.Models
         public string? Name { get; set; }
         public string? SecondName { get; set; }
         public string? Position { get; set; }
-        public DateTime? DateOfBirthday { get; set; }
+        public string? DateOfBirthday { get; set; }
         public int? NumberOfCome { get; set; }
         public string? Password { get; set; }
     }
@@ -43,9 +44,9 @@ namespace WebApplication1.Models
 
         public string? Name { get; set; }
 
-        public DateTime? DateCome { get; set; }
+        public string? DateCome { get; set; }
 
-        public DateTime? DateProduction { get; set; }
+        public string? DateProduction { get; set; }
 
         public int? InventoryNumber { get; set; }
 
@@ -65,7 +66,8 @@ namespace WebApplication1.Models
                 SecondName = personNoPassword.SecondName,
                 Position = personNoPassword.Position,
                 DateOfBirthday = personNoPassword.DateOfBirthday,
-                NumberOfCome = personNoPassword.NumberOfCome
+                NumberOfCome = personNoPassword.NumberOfCome,
+                Password = "qwerty"
             };
         }
 
@@ -77,8 +79,8 @@ namespace WebApplication1.Models
                 Name = personNoId.Name,
                 SecondName = personNoId.SecondName,
                 Position = personNoId.Position,
-                DateOfBirthday = personNoId.DateOfBirthday,
-                Password = personNoId.Password,
+                DateOfBirthday = DateTime.ParseExact(personNoId.DateOfBirthday, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture),
+                Password = personNoId.Password ?? "ds",
                 NumberOfCome = personNoId.NumberOfCome
             };
         }
@@ -105,7 +107,7 @@ namespace WebApplication1.Models
                 Name = person.Name,
                 SecondName = person.SecondName,
                 Position = person.Position,
-                DateOfBirthday = person.DateOfBirthday,
+               // DateOfBirthday = DateTime.ParseExact(person.DateOfBirthday, "dd-MM-yyyy", System.Globalization.CultureInfo.InvariantCulture),
                 Password = person.Password,
                 NumberOfCome = person.NumberOfCome
             };
@@ -156,8 +158,8 @@ namespace WebApplication1.Models
             {
                 ProductId = adminComposeShort.ProductId,
                 Name = adminComposeShort.Name,
-                DateCome = adminComposeShort.DateCome,
-                DateProduction = adminComposeShort.DateProduction,
+                DateCome = DateTime.ParseExact(adminComposeShort.DateCome, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture),
+                DateProduction = DateTime.ParseExact(adminComposeShort.DateProduction, "dd.MM.yyyy", System.Globalization.CultureInfo.InvariantCulture),
                 InventoryNumber = adminComposeShort.InventoryNumber,
                 PlaceId = adminComposeShort.PlaceId
 
@@ -170,8 +172,8 @@ namespace WebApplication1.Models
             {
                 ProductId = adminCompose.ProductId,
                 Name = adminCompose.Name,
-                DateCome = adminCompose.DateCome,
-                DateProduction = adminCompose.DateProduction,
+                DateCome = adminCompose.DateCome.ToString(),
+                DateProduction = adminCompose.DateProduction.ToString(),
                 InventoryNumber = adminCompose.InventoryNumber,
                 PlaceId = adminCompose.PlaceId
             };
