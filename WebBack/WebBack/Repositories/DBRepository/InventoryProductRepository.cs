@@ -35,7 +35,7 @@ namespace DB_course.Repositories.DBRepository
 
         public void Delete(string key)
         {
-            InventoryProduct book = db.InventoryProducts.Find(Convert.ToInt32(key));
+            InventoryProduct book = db.InventoryProducts.Find(Convert.ToInt32(key)) ?? db.InventoryProducts.First(p=>(p.InventoryNumber==Convert.ToInt32(key)));
             if (book == null)
                 throw new Exception("Inventory not Exists");
             db.InventoryProducts.Remove(book);
@@ -50,7 +50,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<InventoryProduct> GetList()
         {
-            db.ChangeTracker.Clear();
+           // db.ChangeTracker.Clear();
             return db.InventoryProducts.OrderBy(c=> c.InventoryNumber).ToList();
         }
 

@@ -1,0 +1,9 @@
+{
+ 
+  "appDomain": "ifAvailable",
+  "maxParallelThreads": 8,
+  "parallelizeAssembly": false,
+  "parallelizeTestCollections": true,
+  "diagnosticMessages": true,
+  "isRandomOrder": false
+}

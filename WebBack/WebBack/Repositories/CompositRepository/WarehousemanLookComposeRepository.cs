@@ -45,12 +45,12 @@ namespace DB_course.Repositories.CompositRepository
 
             var WLC = from U in db.Usefuls
                       join PE in db.Persons on U.PersonId equals PE.Login
-                      join NT in N on U.InventoryId equals NT.InventoryId
-                      join I in db.InventoryProducts on U.InventoryId equals I.InventoryNumber
-                      where I.InventoryNumber == petId || EF.Functions.Like(PE.Name!, value) || EF.Functions.Like(PE.SecondName!, value)
+                      join NT in N on U.InventoryId equals NT.InventoryId   
+            join I in db.InventoryProducts on U.InventoryId equals I.InventoryNumber
+            where I.InventoryNumber == petId || PE.Name == value || PE.SecondName == value || PE.Login == value
                       select new WarehousemanLookCompose
                       {
-                   
+
                           Name = PE.Name,
                           SecondName = PE.SecondName,
                           Login = PE.Login,

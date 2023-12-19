@@ -40,7 +40,7 @@ namespace DB_course.Repositories.DBRepository
                 id = Convert.ToInt32(key);
             }
             catch { throw new Exception("unvalid key"); }
-            Useful book = db.Usefuls.Find(id);
+            Useful book = db.Usefuls.Find(id) ?? db.Usefuls.First(p=>p.InventoryId == id);
             if (book != null)
                 db.Usefuls.Remove(book);
         }

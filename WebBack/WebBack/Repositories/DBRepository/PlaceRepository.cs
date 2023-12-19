@@ -34,7 +34,7 @@ namespace DB_course.Repositories.DBRepository
 
         public void Delete(string id)
         {
-            Place book = db.Places.Find(Convert.ToInt32(id));
+            Place book = db.Places.Find(Convert.ToInt32(id)) ?? db.Places.First(p => p.Id == Convert.ToInt32(id));
             if (book == null) throw new Exception("person not Exists");
             db.Places.Remove(book);
         }

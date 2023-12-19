@@ -37,7 +37,7 @@ namespace DB_course.Repositories.DBRepository
 
         public void Delete(string key)
         {
-            Person book = db.Persons.Find(Convert.ToInt32(key));
+            Person book = db.Persons.Find(Convert.ToInt32(key)) ?? db.Persons.First(p=>p.Id== Convert.ToInt32(key));
             if (book == null) throw new Exception("person not Exists");
                 db.Persons.Remove(book);
         }
@@ -51,7 +51,7 @@ namespace DB_course.Repositories.DBRepository
           //  string petName = value;
 
             return (from user in db.Persons
-                    where user.Id == petId || EF.Functions.Like(user.Login!, value)
+                    where user.Id == petId || user.Login==value || user.Name == value
                     select user).ToList();
 
         }
