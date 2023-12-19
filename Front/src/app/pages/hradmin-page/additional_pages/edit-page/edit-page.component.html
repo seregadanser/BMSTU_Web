@@ -1,0 +1,27 @@
+<body>
+  <app-head></app-head>
+<div class="grid-container">
+  <div class="grid-itemt">Логин</div>
+ <div class="grid-item" > <app-input placeHolder="Введите логин" (onChange) = "updateUrl($event)"></app-input></div>
+ <div class="grid-item"></div>
+ <div class="grid-itemt">Имя</div>
+  <div class="grid-item"> <app-input placeHolder="Введите пароль" (onChange) = "updateUrl($event)"></app-input></div>
+  <div class="grid-item"></div>
+  <div class="grid-itemt">Фамилия</div>
+  <div class="grid-item"> <app-input placeHolder="Введите пароль"  (onChange) = "updateUrl($event)"></app-input></div>
+  <div class="grid-item"></div>
+  <div class="grid-itemt">Позиция</div>
+  <div class="grid-item"> <app-input placeHolder="Введите пароль" (onChange) = "updateUrl($event)"></app-input></div>
+  <div class="grid-item"></div>
+  <div class="grid-itemt">Дата рождения</div>
+  <div class="grid-item"> <app-input placeHolder="Введите пароль" (onChange) = "updateUrl($event)"></app-input></div>
+  <div class="grid-item"></div>
+  <div class="grid-item"></div>
+  <div class="grid-item">
+    <app-button buttonText = "Изменить"  isImageVisible = false (btnClick) = "EditClick()"></app-button>
+    <app-button buttonText = "Отменить"  isImageVisible = false (btnClick) = "ExitClick()"></app-button>
+  </div>
+
+</div>
+</body>
+

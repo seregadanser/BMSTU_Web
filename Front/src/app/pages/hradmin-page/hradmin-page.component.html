@@ -1,0 +1,27 @@
+<router-outlet></router-outlet>
+<body>
+  <app-head isHeadVisible = 'true'
+  isExitVisible = 'true'
+  isSearchVisible = 'true'
+  isAddVisible = 'true'
+  isNameVisible = 'true'
+  (intEnter) = "searchClickHandler($any($event))"
+  (btnAddClick) = "addClickHandler()"
+  (btnExitClick) = "exitClickHandler()"
+  [Name] = "name"
+  pageName ="Сотрудники"></app-head>
+
+  <div style="text-align: center;"><app-table [columns]="columns" [data]="data" [action_columns]="action_columns" [action_data]="action_data" (buttonClick)="onButtonClick($event)"></app-table>
+  </div>
+  <div style="text-align: center;">
+    <app-pagination
+  [current]="current"
+  [total]="total"
+  (goTo)="onGoTo($event)"
+  (next)="onNext($event)"
+  (previous)="onPrevious($event)"
+></app-pagination>
+</div>
+</body>
+
+

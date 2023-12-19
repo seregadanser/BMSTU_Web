@@ -1,0 +1,5 @@
+
+    <div class="custom-input" >
+          <img class="input-image"  *ngIf="showImage" [src]= "svgPath" alt="Image" [ngClass]="{'noinput-image': !showImage}">
+        <input type="text" class="input-text" placeholder={{placeHolder}} (keyup.enter)="onEnterKey()" [ngClass]="{'full-width': !showImage}"  (input)="onInputChange()"   [(ngModel)]="inputValue">
+      </div>

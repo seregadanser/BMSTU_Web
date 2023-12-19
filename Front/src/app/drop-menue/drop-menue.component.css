@@ -1,0 +1,33 @@
+.grid-container {
+  display: grid;
+  grid-template-rows: 2em 2em;
+  background-color: #E3C5A1;
+  font-family: 'IBM Plex Mono', monospace;
+  border: 1px solid black;
+  max-width: 230px;
+  border-radius: 10px;
+}
+.grid-item1 {
+  background-color: #E3C5A1;
+  padding: 5px;
+  text-align: left;
+  border-bottom: 1px solid black;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  max-width: 230px;
+  cursor: pointer;
+}
+
+.grid-item {
+  background-color: #E3C5A1;
+  padding: 5px;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 10px;
+  max-width: 230px;
+}
+
+.selected {
+  text-decoration: underline; /* Underline the selected item */
+  cursor:default;
+}

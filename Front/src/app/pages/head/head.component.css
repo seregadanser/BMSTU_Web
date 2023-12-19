@@ -1,0 +1,60 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: 24em 1fr 1fr;
+  grid-template-rows: 5em 3em 2em 4em;
+  font-family: 'IBM Plex Mono', monospace;
+
+}
+
+.grid-item {
+
+  padding: 20px;
+  text-align: center;
+}
+
+.special-item{
+  grid-column: 1 / span 3;
+}
+
+.grid-item3 {
+  padding: 20px;
+  text-align: right;
+  font-weight: bold;
+}
+
+.grid-item4 {
+  padding-right: 20px;
+  padding-top: 0px;
+  text-align: right;
+}
+.grid-item6 {
+  padding-top: 15px;
+  text-align: left;
+}
+
+.grid-item7 {
+  padding-right: 20px;
+  padding-top: 15px;
+  text-align: right;
+}
+
+.grid-item5 {
+  padding-top: 0px;
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+}
+
+
+.grid-item1 {
+
+  padding: 20px;
+  text-align: left;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.centered{
+  text-align: center;
+  display: inline-block;
+}

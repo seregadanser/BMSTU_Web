@@ -1,0 +1,21 @@
+
+<div class="grid-container">
+  <div class="grid-item1"><div><div>Система управления <br /> инвентарным складом</div></div></div>
+  <div class="grid-item"></div>
+  <div class="grid-item3">  <div *ngIf="isNameVisible" ><div class="centered"> Вы вошли как <br/> {{Name}}</div></div></div>
+  <div  class="grid-item4 special-item"><div *ngIf="isExitVisible"><app-button svgPath = "../../assets/24_user.svg" isImageVisible = true isTextVisible = true buttonText = "Выход" (btnClick)="BtnExitClick()"></app-button></div></div>
+  <div class="grid-item5 special-item">  <div  *ngIf="isHeadVisible">{{pageName}}</div></div>
+  <div  class="grid-item"> <div *ngIf="isSearchVisible"><app-input svgPath = "../../assets/24_search.svg" (onEnter)="SearchClick($event)" ></app-input></div></div>
+  <div  class="grid-item6"> <div *ngIf="isDropVisible"> <app-button svgPath = "../../assets/24_down.svg" isImageVisible = true isTextVisible = false (btnClick)="BtnDropClick()"></app-button>
+   <div *ngIf="isDropVisibleflag">
+    <app-drop-menue 
+    [value1]="DropV1" 
+    [value2]="DropV2" 
+    [selected] = "whatSelected"
+    (selectionChanged)="HandleSelectionChange($event)">
+  </app-drop-menue>
+</div>
+                            </div>
+   </div>
+  <div  class="grid-item7">  <div *ngIf="isAddVisible"> <app-button svgPath = "../../assets/24_plus.svg" isImageVisible = true isTextVisible = true buttonText = "Добавить" (btnClick)="BtnAddClick()"></app-button></div></div>
+</div>

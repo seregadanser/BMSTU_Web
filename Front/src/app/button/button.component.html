@@ -1,0 +1,5 @@
+<div class="custom-button" (click)="onClick()" [ngClass]="{ 'no-text': !isTextVisible, 'no-image': !isImageVisible }">
+    <span class="button-text" *ngIf="isTextVisible">{{ buttonText }}</span>
+    <img class="button-img" *ngIf="isImageVisible" [src]="svgPath" alt="Изображение">
+</div>
+

@@ -1,0 +1,35 @@
+<router-outlet></router-outlet>
+<body>
+  <div style="position: relative; z-index: 255;">
+  <app-head  isHeadVisible = 'true'
+  isExitVisible = 'true'
+  isSearchVisible = 'true'
+  isNameVisible = 'true'
+  isDropVisible = 'true'
+  (intEnter) = "searchClickHandler($any($event))"
+
+  (btnExitClick) = "exitClickHandler()"
+  [Name] = "name"
+  [pageName] ="title"
+  DropV1 = "Свободные предметы"
+  DropV2 = "Мои предметы"
+  (handleSelectionChange) = "changeOptionClickHandler($any($event))"
+  >
+</app-head>
+</div>
+
+  <div *ngIf="!isPlaceVisible" style="text-align: center;position: relative; z-index: 1;"><app-table [columns]="columns" [data]="data" [action_columns]="actionItem_columns" [action_data]="actionItem_data" (buttonClick)="onButtonClick($event)"></app-table></div>
+  <div *ngIf="isPlaceVisible" style="text-align: center; position: relative; z-index: 1;"><app-table [columns]="columns" [data]="data" [action_columns]="actionPlace_columns" [action_data]="actionPlace_data" (buttonClick)="onButtonClick($event)"></app-table></div>
+
+  <div style="text-align: center;">
+    <app-pagination
+  [current]="current"
+  [total]="total"
+  (goTo)="onGoTo($event)"
+  (next)="onNext($event)"
+  (previous)="onPrevious($event)"
+></app-pagination>
+</div>
+</body>
+
+

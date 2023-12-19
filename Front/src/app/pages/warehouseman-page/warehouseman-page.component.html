@@ -1,0 +1,24 @@
+<router-outlet></router-outlet>
+<body>
+  <app-head isHeadVisible = 'true'
+  isExitVisible = 'true'
+  isNameVisible = 'true'
+  (intEnter) = "searchClickHandler($any($event))"
+  (btnExitClick) = "exitClickHandler()"
+  [Name] = "name"
+  pageName ="Инвентарные предметы"></app-head>
+
+  <div style="text-align: center;"><app-table [columns]="columns" [data]="data" [action_columns]="action_columns" [action_data]="action_data" (buttonClick)="onButtonClick($event)"></app-table>
+  </div>
+  <div style="text-align: center;">
+    <app-pagination
+  [current]="current"
+  [total]="total"
+  (goTo)="onGoTo($event)"
+  (next)="onNext($event)"
+  (previous)="onPrevious($event)"
+></app-pagination>
+</div>
+</body>
+
+

@@ -1,0 +1,22 @@
+.grid-container {
+  display: grid;
+  grid-template-rows: 5em 5em 4em;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.grid-item {
+
+  padding: 20px;
+  text-align: center;
+}
+
+body {
+  margin-top:-15px;
+  margin-left: -10px;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+  background-color: #F2EADF;
+}

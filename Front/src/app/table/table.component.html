@@ -1,0 +1,19 @@
+<div class="table-container" >
+<table >
+  <thead>
+    <tr>
+      <th *ngFor="let column of columns">{{ column }}</th>
+      <th *ngFor="let column of action_columns">{{ column }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of data">
+        <td *ngFor="let column of columns">{{ item[column] }}</td>
+      <td *ngFor="let column of action_data">
+        <img  src="../assets/{{ column.icon }}" alt="{{ column.label }}" (click)="onButtonClick(item, column)" >
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</div>

@@ -1,0 +1,30 @@
+<body>
+  <app-head></app-head>
+<div class="grid-container">
+  <div class="grid-itemt">Id продукта</div>
+ <div class="grid-item" > <app-input placeHolder="1" (onChange) = "updateUrl($event)"></app-input></div>
+ <div class="grid-item"></div>
+ <div class="grid-itemt">Имя продукта</div>
+  <div class="grid-item"> <app-input placeHolder="name" (onChange) = "updateUrl($event)"></app-input></div>
+  <div class="grid-item"></div>
+  <div class="grid-itemt">Дата прихода</div>
+  <div class="grid-item"> <app-input placeHolder="12.12.2000"  (onChange) = "updateUrl($event)"></app-input></div>
+  <div class="grid-item"></div>
+  <div class="grid-itemt">Дата производства</div>
+  <div class="grid-item"> <app-input placeHolder="12.12.2000" (onChange) = "updateUrl($event)"></app-input></div>
+  <div class="grid-item"></div>
+  <div class="grid-itemt">Инвентарный номер</div>
+  <div class="grid-item"> <app-input placeHolder="1" (onChange) = "updateUrl($event)"></app-input></div>
+  <div class="grid-item"></div>
+  <div class="grid-itemt">ID места</div>
+  <div class="grid-item"> <app-input placeHolder="1" (onChange) = "updateUrl($event)"></app-input></div>
+  <div class="grid-item"></div>
+  <div class="grid-item"></div>
+  <div class="grid-item">
+    <app-button buttonText = "Добавить"  isImageVisible = false (btnClick) = "EditClick()"></app-button>
+    <app-button buttonText = "Отменить"  isImageVisible = false (btnClick) = "ExitClick()"></app-button>
+  </div>
+
+</div>
+</body>
+

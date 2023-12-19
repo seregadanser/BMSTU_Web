@@ -1,0 +1,4 @@
+<div class="grid-container">
+    <div class="grid-item1" [class.selected]="isValue1Selected" (click)="selectItem('value1')"><div>{{value1}}</div></div>
+    <div class="grid-item" [class.selected]="!isValue1Selected" (click)="selectItem('value2')"><div>{{value2}}</div></div>
+  </div>
