@@ -11,7 +11,7 @@ namespace WebBack.Tests.RepTests
 {
     public class WorkerLookUsefulComposeRepositoryTests
     {
-        [Fact]
+        [AllureXunit]
         public void Get_ReturnsExpectedResult()
         {
             // Arrange

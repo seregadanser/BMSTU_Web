@@ -13,7 +13,7 @@ namespace WebBack.Tests.RepTests
 {
     public class PlaceofObjectRepositoryTests
     {
-        [Fact]
+        [AllureXunit]
         public void Create_AddsPlaceofObject()
         {
             // Arrange
@@ -38,7 +38,7 @@ namespace WebBack.Tests.RepTests
           //  mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void Delete_RemovesPlaceofObject()
         {
             // Arrange
@@ -61,7 +61,7 @@ namespace WebBack.Tests.RepTests
            // mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void GetList_ReturnsListOfPlaceofObjects()
         {
             // Arrange

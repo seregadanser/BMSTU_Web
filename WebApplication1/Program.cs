@@ -33,8 +33,8 @@ namespace WebApplication1
             Dictionary<string, IModel> models = new Dictionary<string, IModel>();
 
             IConfigurationRoot config = new ConfigurationBuilder()
-                //.SetBasePath("D:\\Labs\\BMSTU_Web\\WebApplication1\\")
-                .SetBasePath("D:\\Tests\\Web\\WebApplication1\\")
+                .SetBasePath("D:\\Labs\\BMSTU_Web\\WebApplication1\\")
+                //.SetBasePath("D:\\Tests\\Web\\WebApplication1\\")
                 .AddJsonFile("connstring.json")
                 .Build();
 

@@ -47,10 +47,28 @@ namespace WebBack.Tests.Additional
 
     public static class PlaceMother
     {
-        public static Place CreateValidPlace()
+        public static Place CreateValidPlace1()
         {
             return new PlaceBuilder()
                 .WithId(1)
+                .WithNumberStay(10)
+                .WithNumberLayer(2)
+                .WithSize(100)
+                .Build();
+        }
+        public static Place CreateValidPlace2()
+        {
+            return new PlaceBuilder()
+                .WithId(2)
+                .WithNumberStay(10)
+                .WithNumberLayer(2)
+                .WithSize(100)
+                .Build();
+        }
+        public static Place CreateValidPlace3()
+        {
+            return new PlaceBuilder()
+                .WithId(3)
                 .WithNumberStay(10)
                 .WithNumberLayer(2)
                 .WithSize(100)

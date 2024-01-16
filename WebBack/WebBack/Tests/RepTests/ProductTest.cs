@@ -13,7 +13,7 @@ namespace WebBack.Tests.RepTests
 {
     public class ProductRepositoryTests
     {
-        [Fact]
+        [AllureXunit]
         public void Create_AddsProduct()
         {
             // Arrange
@@ -40,7 +40,7 @@ namespace WebBack.Tests.RepTests
            // mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void Delete_RemovesProduct()
         {
             // Arrange
@@ -63,7 +63,7 @@ namespace WebBack.Tests.RepTests
             //mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void Get_ReturnsListOfProductsMatchingCriteria()
         {
             // Arrange
@@ -89,7 +89,7 @@ namespace WebBack.Tests.RepTests
             Assert.Equal(2, result.First().Id); // Assuming you expect the product with Id = 2
         }
 
-        [Fact]
+        [AllureXunit]
         public void GetList_ReturnsListOfProducts()
         {
             // Arrange
@@ -115,7 +115,7 @@ namespace WebBack.Tests.RepTests
             Assert.Equal(products.Count, result.Count());
         }
 
-        [Fact]
+        [AllureXunit]
         public void Update_UpdatesProduct()
         {
             // Arrange

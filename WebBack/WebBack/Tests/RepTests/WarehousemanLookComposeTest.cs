@@ -11,7 +11,7 @@ namespace WebBack.Tests.RepTests
 {
     public class WarehousemanLookComposeRepositoryTests
     {
-        [Fact]
+        [AllureXunit]
         public void Get_ReturnsExpectedResult()
         {
             // Arrange
@@ -62,7 +62,7 @@ namespace WebBack.Tests.RepTests
             // Add more specific assertions based on your expected results and business logic
         }
 
-        [Fact]
+        [AllureXunit]
         public void GetList_ReturnsExpectedResult()
         {
             // Arrange

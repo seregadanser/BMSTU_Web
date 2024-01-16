@@ -13,7 +13,7 @@ namespace WebBack.Tests.RepTests
 {
     public class PlaceRepositoryTests
     {
-        [Fact]
+        [AllureXunit]
         public void Create_AddsPlace()
         {
             // Arrange
@@ -39,7 +39,7 @@ namespace WebBack.Tests.RepTests
             //mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void Delete_RemovesPlace()
         {
             // Arrange
@@ -62,7 +62,7 @@ namespace WebBack.Tests.RepTests
             //mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void GetList_ReturnsListOfPlaces()
         {
             // Arrange
@@ -88,7 +88,7 @@ namespace WebBack.Tests.RepTests
             Assert.Equal(places.Count, result.Count());
         }
 
-        [Fact]
+        [AllureXunit]
         public void Get_ReturnsListOfPlacesMatchingCriteria()
         {
             // Arrange

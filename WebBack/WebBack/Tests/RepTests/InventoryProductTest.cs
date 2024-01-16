@@ -11,7 +11,7 @@ namespace WebBack.Tests.RepTests
 {
     public class InventoryProductRepositoryTests
     {
-        [Fact]
+        [AllureXunit]
         public void Create_AddsInventoryProduct()
         {
             // Arrange
@@ -37,7 +37,7 @@ namespace WebBack.Tests.RepTests
             //mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void Delete_RemovesInventoryProduct()
         {
             // Arrange
@@ -61,7 +61,7 @@ namespace WebBack.Tests.RepTests
            // mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void GetList_ReturnsInventoryProducts()
         {
             // Arrange
