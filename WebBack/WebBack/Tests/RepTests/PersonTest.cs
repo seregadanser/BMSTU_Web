@@ -13,7 +13,7 @@ namespace WebBack.Tests.RepTests
 {
     public class PersonRepositoryTests
     {
-        [Fact]
+        [AllureXunit]
         public void Create_AddsPerson()
         {
             // Arrange
@@ -42,7 +42,7 @@ namespace WebBack.Tests.RepTests
             //mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void Delete_RemovesPerson()
         {
             // Arrange
@@ -66,7 +66,7 @@ namespace WebBack.Tests.RepTests
             //mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void Get_ReturnsPersons()
         {
             // Arrange
@@ -91,7 +91,7 @@ namespace WebBack.Tests.RepTests
             // Add more assertions based on your expected results
         }
 
-        [Fact]
+        [AllureXunit]
         public void GetList_ReturnsPersons()
         {
             // Arrange
@@ -116,7 +116,7 @@ namespace WebBack.Tests.RepTests
             // Add more assertions based on your expected results
         }
 
-        [Fact]
+        [AllureXunit]
         public void Update_UpdatesPerson()
         {
             // Arrange

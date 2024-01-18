@@ -13,7 +13,7 @@ namespace WebBack.Tests.RepTests
 {
     public class UsefulRepositoryTests
     {
-        [Fact]
+        [AllureXunit]
         public void Create_AddsUseful()
         {
             // Arrange
@@ -38,7 +38,7 @@ namespace WebBack.Tests.RepTests
           //  mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void Delete_RemovesUseful()
         {
             // Arrange
@@ -61,7 +61,7 @@ namespace WebBack.Tests.RepTests
           //  mockWarehouseContext.Verify(x => x.SaveChanges(), Times.Once);
         }
 
-        [Fact]
+        [AllureXunit]
         public void GetList_ReturnsListOfUsefuls()
         {
             // Arrange

@@ -11,7 +11,7 @@ namespace WebBack.Tests.RepTests
 {
     public class AdminComposeRepositoryTests
     {
-        [Fact]
+        [AllureXunit]
         public void Get_ReturnsExpectedResult()
         {
             // Arrange
@@ -54,7 +54,7 @@ namespace WebBack.Tests.RepTests
       
         }
 
-        [Fact]
+        [AllureXunit]
         public void GetList_ReturnsExpectedResult()
         {
             // Arrange
